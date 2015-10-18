@@ -4,7 +4,7 @@
   "description": "A simple API for retrieving APIOps events information (swagger-2.0 specification)",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "connect": "^3.2.0",
