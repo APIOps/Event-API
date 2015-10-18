@@ -29,8 +29,8 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerUi());
 
   // Start the server
-  http.createServer(app).listen(80, function () {
-    console.log('Your server is listening on port %d (http://http://apiopsevents.herokuapp.com:%d)', 80, 80);
-    console.log('Swagger-ui is available on http://http://apiopsevents.herokuapp.com:%d/docs', 80);
+  http.createServer(app).listen(8080, function () {
+    console.log('Your server is listening on port %d (http://http://apiopsevents.herokuapp.com:%d)', 8080, 8080);
+    console.log('Swagger-ui is available on http://http://apiopsevents.herokuapp.com:%d/docs', 8080);
   });
 });
