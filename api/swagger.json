@@ -1,0 +1,325 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "APIOps Events (Simple)",
+    "description": "A simple API for retrieving APIOps events information (swagger-2.0 specification)",
+    "version": "1.0.0"
+  },
+  "produces": ["application/json"],
+  "host": "localhost:8080",
+  "basePath": "/apiopsevents",
+  "paths": {
+  
+  "/event": {
+    
+    "post": {
+      "summary": "",
+      "description":"Creates a new event in the portal.",
+      "x-swagger-router-controller": "Default",
+      "tags": ["Default"],
+      "operationId": "addPet",
+      "parameters": [
+        {
+  "in" : "body",
+  "name" : "pet",
+  "description" : "Event to be added",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/newEvent"
+  }
+}
+        
+      ],
+      "responses": {
+        "200": {
+  "description" : "event response",
+  "schema" : {
+    "$ref" : "#/definitions/event"
+  }
+}
+        ,
+        "default": {
+  "description" : "unexpected error",
+  "schema" : {
+    "$ref" : "#/definitions/errorModel"
+  }
+}
+        
+        
+      }
+    } 
+    
+  } ,
+  
+  "/events": {
+    
+    "get": {
+      "summary": "",
+      "description":"Returns all events from the system that the user has access to",
+      "x-swagger-router-controller": "Default",
+      "tags": ["Default"],
+      "operationId": "findEvents",
+      "parameters": [
+        {
+  "name" : "city",
+  "in" : "query",
+  "description" : "cities to filter by",
+  "required" : false,
+  "type" : "array",
+  "items" : {
+    "type" : "string"
+  },
+  "collectionFormat" : "csv"
+},
+        {
+  "name" : "limit",
+  "in" : "query",
+  "description" : "maximum number of results to return",
+  "required" : false,
+  "type" : "integer",
+  "default" : 10,
+  "maximum" : 100.0,
+  "minimum" : 10.0,
+  "format" : "int32"
+}
+        
+      ],
+      "responses": {
+        "200": {
+  "description" : "event response",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/event"
+    }
+  }
+}
+        ,
+        "default": {
+  "description" : "unexpected error",
+  "schema" : {
+    "$ref" : "#/definitions/errorModel"
+  }
+}
+        
+        
+      }
+    } 
+    
+  } ,
+  
+  "/event/{id}/participants": {
+    
+    "get": {
+      "summary": "",
+      "description":"Returns participants of one event",
+      "x-swagger-router-controller": "Default",
+      "tags": ["Default"],
+      "operationId": "findEventParticipantsById",
+      "parameters": [
+        {
+  "name" : "id",
+  "in" : "path",
+  "description" : "ID of event to fetch",
+  "required" : true,
+  "type" : "integer",
+  "format" : "int64"
+}
+        
+      ],
+      "responses": {
+        "200": {
+  "description" : "events response",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/participant"
+    }
+  }
+}
+        ,
+        "default": {
+  "description" : "unexpected error",
+  "schema" : {
+    "$ref" : "#/definitions/errorModel"
+  }
+}
+        
+        
+      }
+    } 
+    
+  } ,
+  
+  "/event/{id}": {
+    
+    "get": {
+      "summary": "",
+      "description":"Returns details of one event",
+      "x-swagger-router-controller": "Default",
+      "tags": ["Default"],
+      "operationId": "findPetById",
+      "parameters": [
+        {
+  "name" : "id",
+  "in" : "path",
+  "description" : "ID of event to fetch",
+  "required" : true,
+  "type" : "integer",
+  "format" : "int64"
+}
+        
+      ],
+      "responses": {
+        "200": {
+  "description" : "event response",
+  "schema" : {
+    "$ref" : "#/definitions/event"
+  }
+}
+        ,
+        "default": {
+  "description" : "unexpected error",
+  "schema" : {
+    "$ref" : "#/definitions/errorModel"
+  }
+}
+        
+        
+      }
+    } ,
+    
+    "delete": {
+      "summary": "",
+      "description":"deletes a single event based on the ID supplied",
+      "x-swagger-router-controller": "Default",
+      "tags": ["Default"],
+      "operationId": "deleteEvent",
+      "parameters": [
+        {
+  "name" : "id",
+  "in" : "path",
+  "description" : "ID of event to delete",
+  "required" : true,
+  "type" : "integer",
+  "format" : "int64"
+}
+        
+      ],
+      "responses": {
+        "204": {
+  "description" : "event deleted"
+}
+        ,
+        "default": {
+  "description" : "unexpected error",
+  "schema" : {
+    "$ref" : "#/definitions/errorModel"
+  }
+}
+        
+        
+      }
+    } 
+    
+  } 
+  
+  }, "definitions": {
+  "event": {
+  "type" : "object",
+  "required" : [ "id", "title" ],
+  "properties" : {
+    "id" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "title" : {
+      "type" : "string"
+    },
+    "participantCount" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "imageUrl" : {
+      "type" : "string"
+    },
+    "eventUrl" : {
+      "type" : "string"
+    },
+    "class" : {
+      "type" : "string"
+    },
+    "city" : {
+      "type" : "string"
+    },
+    "address" : {
+      "type" : "string"
+    },
+    "zipcode" : {
+      "type" : "string"
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "startdate" : {
+      "type" : "string",
+      "format" : "date"
+    },
+    "enddate" : {
+      "type" : "string",
+      "format" : "date"
+    }
+  }
+},"newEvent": {
+  "type" : "object",
+  "required" : [ "title" ],
+  "properties" : {
+    "id" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "title" : {
+      "type" : "string"
+    },
+    "city" : {
+      "type" : "string"
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "startdate" : {
+      "type" : "string",
+      "format" : "date"
+    },
+    "enddate" : {
+      "type" : "string",
+      "format" : "date"
+    }
+  }
+},"participant": {
+  "type" : "object",
+  "required" : [ "id" ],
+  "properties" : {
+    "id" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "name" : {
+      "type" : "string"
+    }
+  }
+},"errorModel": {
+  "type" : "object",
+  "required" : [ "code", "message" ],
+  "properties" : {
+    "code" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "message" : {
+      "type" : "string"
+    }
+  }
+}
+  }
+}
